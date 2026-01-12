@@ -1,0 +1,55 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(git clone:*)",
+      "Bash(git add:*)",
+      "Bash(git commit:*)",
+      "Bash(git diff:*)",
+
+      "Bash(docker-compose:*)",
+      "Bash(docker compose:*)",
+      "Bash(docker logs:*)",
+      "Bash(docker exec:*)",
+      "Bash(docker stop:*)",
+      "Bash(docker restart:*)",
+      "Bash(docker ps:*)",
+      "Bash(docker inspect:*)",
+      "Bash(docker run:*)",
+      "Bash(docker volume rm:*)",
+      "Bash(docker rm:*)",
+      "Bash(docker start:*)",
+
+      "Bash(tree:*)",
+      "Bash(chmod:*)",
+      "Bash(curl:*)",
+      "Bash(echo:*)",
+      "Bash(ls:*)",
+      "Bash(mkdir:*)",
+      "Bash(ps:*)",
+      "Bash(ss:*)",
+      "Bash(cat:*)",
+      "Bash(ruff check:*)",
+      "Bash(find:*)",
+      "Bash(grep:*)",
+      "Bash(sort:*)",
+
+      "Bash(pip:*)",
+      "Bash(python:*)",
+      "Bash(uv run:*)",
+      "Bash(uv pip install:*)",
+      "Bash(uv sync:*)",
+
+      "mcp__web-reader__webReader",
+      "WebSearch",
+      "mcp__web-search-prime__webSearchPrime",
+      "mcp__github__get_file_contents",
+
+      "Skill(code-review)",
+      "Skill(update-root-docs)",
+      "Skill(commit)",
+      "Skill(bug-review-and-fix)"
+    ],
+    "deny": [],
+    "ask": []
+  }
+}
