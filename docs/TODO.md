@@ -1,5 +1,7 @@
 # k8s-agent TODO List
 
+- [ ] init cloud infrastructure with terraform
+
 ## Completed
 
 - [x] Initial planning - Created comprehensive initial setup plan (docs/development/26-01-08/initial-setup-plan.md)
