@@ -63,10 +63,10 @@ For markdown files containing multiple Mermaid diagrams, use concurrent validati
 
 ```bash
 # Validate all diagrams in a markdown file concurrently (4 workers by default)
-python .claude/skills/mermaid-fix/scripts/validate_markdown_mermaid.py <path/to/file.md>
+python3 .claude/skills/mermaid-fix/scripts/validate_markdown_mermaid.py <path/to/file.md>
 
 # Specify number of parallel workers
-python .claude/skills/mermaid-fix/scripts/validate_markdown_mermaid.py <path/to/file.md> --workers 8
+python3 .claude/skills/mermaid-fix/scripts/validate_markdown_mermaid.py <path/to/file.md> --workers 8
 ```
 
 ### Step-by-Step Mode
