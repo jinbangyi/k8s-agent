@@ -11,19 +11,19 @@ This document provides a high-level overview of the Huawei Cloud infrastructure 
 ```mermaid
 graph TB
     subgraph "Local Machine - Terraform Control"
-        Admin[Admin Credentials (AK/SK)]
+        Admin["Admin Credentials (AK/SK)"]
         CLI[huaweicloud CLI]
 
         subgraph "Step 1: IAM Security Setup"
-            CreatePolicy[Create Custom Policy (k8s-agent-infra-policy)]
-            CreateUser[Create IAM User (k8s-agent-terraform)]
+            CreatePolicy["Create Custom Policy (k8s-agent-infra-policy)"]
+            CreateUser["Create IAM User (k8s-agent-terraform)"]
             AttachPolicy[Attach Policy to User]
-            CreateAK[Create Access Key (Save Credentials!)]
+            CreateAK["Create Access Key (Save Credentials!)"]
             UnsetAdmin[Unset Admin Credentials]
         end
 
         subgraph "Step 2: Terraform Deploy"
-            TFVars[terraform.tfvars (Environment Config)]
+            TFVars["terraform.tfvars (Environment Config)"]
             TFInit[terraform init]
             TFPlan[terraform plan]
             TFApply[terraform apply]
@@ -32,7 +32,7 @@ graph TB
 
     subgraph "Huawei Cloud - ap-southeast-3"
         subgraph "Network Layer"
-            VPC[VPC - Name: k8s-agent-cluster-vpc (CIDR: 10.x.0.0/16)]
+            VPC["VPC - Name: k8s-agent-cluster-vpc (CIDR: 10.x.0.0/16)"]
 
             subgraph "Subnets"
                 SubnetDMZ[DMZ Subnet 10.x.0.0/22 - Public-facing]
@@ -55,96 +55,96 @@ graph TB
                 SG_API[K8s API:6443 - From: VPC CIDR]
                 SG_NodePort[NodePort:30000-32767 - From: 0.0.0.0/0]
                 SG_Linkerd[Linkerd:4143 - From: VPC CIDR]
-                SG_DevOps[DevOps Services (MongoDB, Kafka, GitLab)]
+                SG_DevOps["DevOps Services (MongoDB, Kafka, GitLab)"]
             end
         end
 
         subgraph "Compute Layer - ECS Instances by Subnet"
             subgraph "DMZ Subnet (Public-facing resources)"
-                DMZ1[Kong Gateway-1 - s6.large.4 (2 vCPU, 8GB RAM)]
-                DMZ2[Kong Gateway-2 - s6.large.4 (2 vCPU, 8GB RAM)]
-                DMZ3[Kong Gateway-3 - s6.large.4 (2 vCPU, 8GB RAM)]
+                DMZ1["Kong Gateway-1 - s6.large.4 (2 vCPU, 8GB RAM)"]
+                DMZ2["Kong Gateway-2 - s6.large.4 (2 vCPU, 8GB RAM)"]
+                DMZ3["Kong Gateway-3 - s6.large.4 (2 vCPU, 8GB RAM)"]
             end
 
             subgraph "External-Access Subnet (Partner + DB Proxies)"
-                Partner1[Partner Service-1 - s6.large.4 (2 vCPU, 8GB RAM)]
-                KafkaProxy[Kafka Proxy - s6.large.4 (2 vCPU, 8GB RAM)]
-                MongoProxy[MongoDB Proxy - s6.large.4 (2 vCPU, 8GB RAM)]
-                PGProxy[PostgreSQL Proxy - s6.large.4 (2 vCPU, 8GB RAM)]
-                ESProxy[Elasticsearch Proxy - s6.large.4 (2 vCPU, 8GB RAM)]
+                Partner1["Partner Service-1 - s6.large.4 (2 vCPU, 8GB RAM)"]
+                KafkaProxy["Kafka Proxy - s6.large.4 (2 vCPU, 8GB RAM)"]
+                MongoProxy["MongoDB Proxy - s6.large.4 (2 vCPU, 8GB RAM)"]
+                PGProxy["PostgreSQL Proxy - s6.large.4 (2 vCPU, 8GB RAM)"]
+                ESProxy["Elasticsearch Proxy - s6.large.4 (2 vCPU, 8GB RAM)"]
             end
 
             subgraph "Internal-Shared Subnet (Shared resources)"
-                K8sM1[K8s Master-1 - s6.xlarge.4 (4 vCPU, 16GB RAM)]
-                K8sM2[K8s Master-2 - s6.xlarge.4 (4 vCPU, 16GB RAM)]
-                K8sM3[K8s Master-3 - s6.xlarge.4 (4 vCPU, 16GB RAM)]
-                Loki[Loki Logging - s6.large.4 (2 vCPU, 8GB RAM)]
-                Prometheus[Prometheus Monitoring - s6.large.4 (2 vCPU, 8GB RAM)]
-                GitLab[GitLab - s6.large.4 (2 vCPU, 8GB RAM)]
+                K8sM1["K8s Master-1 - s6.xlarge.4 (4 vCPU, 16GB RAM)"]
+                K8sM2["K8s Master-2 - s6.xlarge.4 (4 vCPU, 16GB RAM)"]
+                K8sM3["K8s Master-3 - s6.xlarge.4 (4 vCPU, 16GB RAM)"]
+                Loki["Loki Logging - s6.large.4 (2 vCPU, 8GB RAM)"]
+                Prometheus["Prometheus Monitoring - s6.large.4 (2 vCPU, 8GB RAM)"]
+                GitLab["GitLab - s6.large.4 (2 vCPU, 8GB RAM)"]
             end
 
             subgraph "DevOps-Only Subnet (DevOps resources)"
-                CI[CI/CD Servers - s6.large.4 (2 vCPU, 8GB RAM)]
-                Build[Build Agents - s6.large.4 (2 vCPU, 8GB RAM)]
+                CI["CI/CD Servers - s6.large.4 (2 vCPU, 8GB RAM)"]
+                Build["Build Agents - s6.large.4 (2 vCPU, 8GB RAM)"]
             end
 
             subgraph "Development-Only Subnet (Development resources)"
-                Test[Test Environments - s6.large.4 (2 vCPU, 8GB RAM)]
-                DevServers[Dev Servers - s6.large.4 (2 vCPU, 8GB RAM)]
+                Test["Test Environments - s6.large.4 (2 vCPU, 8GB RAM)"]
+                DevServers["Dev Servers - s6.large.4 (2 vCPU, 8GB RAM)"]
             end
 
             subgraph "Business-Only Subnet (Business resources)"
-                ERP[ERP Systems - s6.large.4 (2 vCPU, 8GB RAM)]
-                BusinessApps[Business Applications - s6.large.4 (2 vCPU, 8GB RAM)]
+                ERP["ERP Systems - s6.large.4 (2 vCPU, 8GB RAM)"]
+                BusinessApps["Business Applications - s6.large.4 (2 vCPU, 8GB RAM)"]
             end
 
             subgraph "Database-Private Subnet (Database resources)"
-                SelfHostedPG[Self-Hosted PostgreSQL - s6.xlarge.4 (4 vCPU, 16GB RAM)]
-                CloudPG[Cloud PostgreSQL/RDS - s6.xlarge.4 (4 vCPU, 16GB RAM)]
-                Cache[Caches - s6.large.4 (2 vCPU, 8GB RAM)]
+                SelfHostedPG["Self-Hosted PostgreSQL - s6.xlarge.4 (4 vCPU, 16GB RAM)"]
+                CloudPG["Cloud PostgreSQL/RDS - s6.xlarge.4 (4 vCPU, 16GB RAM)"]
+                Cache["Caches - s6.large.4 (2 vCPU, 8GB RAM)"]
             end
 
             subgraph "Security-Private Subnet (Security resources)"
-                Vault[Vault - s6.large.4 (2 vCPU, 8GB RAM)]
-                IDS[Intrusion Detection - s6.large.4 (2 vCPU, 8GB RAM)]
+                Vault["Vault - s6.large.4 (2 vCPU, 8GB RAM)"]
+                IDS["Intrusion Detection - s6.large.4 (2 vCPU, 8GB RAM)"]
             end
 
             UserData[cloud-init - Install: curl, wget]
         end
 
         subgraph "Storage Layer"
-            EVS1[(EVS Volume - Attached to App-1 (100GB SAS))]
-            EVS2[(EVS Volume - Attached to K8sM-1 (100GB SAS))]
-            EVS3[(EVS Volume - Attached to K8sM-2 (100GB SAS))]
-            EVS4[(EVS Volume - Attached to K8sM-3 (100GB SAS))]
-            EVS5[(EVS Volume - Attached to DB-1 (200GB SAS))]
-            EVS6[(EVS Volume - Attached to DB-2 (200GB SAS))]
-            EVS7[(EVS Volume - Attached to DB-3 (200GB SAS))]
-            EVS8[(EVS Volume - Attached to DevOps-1 (100GB SAS))]
-            EVS9[(EVS Volume - Attached to Dev-1 (100GB SAS))]
+            EVS1[("EVS Volume - Attached to App-1 (100GB SAS)")]
+            EVS2[("EVS Volume - Attached to K8sM-1 (100GB SAS)")]
+            EVS3[("EVS Volume - Attached to K8sM-2 (100GB SAS)")]
+            EVS4[("EVS Volume - Attached to K8sM-3 (100GB SAS)")]
+            EVS5[("EVS Volume - Attached to DB-1 (200GB SAS)")]
+            EVS6[("EVS Volume - Attached to DB-2 (200GB SAS)")]
+            EVS7[("EVS Volume - Attached to DB-3 (200GB SAS)")]
+            EVS8[("EVS Volume - Attached to DevOps-1 (100GB SAS)")]
+            EVS9[("EVS Volume - Attached to Dev-1 (100GB SAS)")]
 
-            OBS[(OBS Bucket - k8s-agent-prod-xxxx (Lifecycle: 30d expiration))]
+            OBS[("OBS Bucket - k8s-agent-prod-xxxx (Lifecycle: 30d expiration)")]
         end
 
         subgraph "Load Balancers"
             ELB_Kong[Kong API Gateway LB - DMZ - Port: 8000,8443]
-            EIP_Kong[Public IP / EIP (100Mbps)]
+            EIP_Kong["Public IP / EIP (100Mbps)"]
 
             ELB_Proxy[DB Proxy LBs - External-Access - Ports: 9092,27017,5432,9200]
-            EIP_Proxy[Public IP / EIP (100Mbps)]
+            EIP_Proxy["Public IP / EIP (100Mbps)"]
 
             ELB_K8s[K8s API LB - Internal-Shared - Port: 6443]
-            EIP_K8s[Public IP / EIP (100Mbps)]
+            EIP_K8s["Public IP / EIP (100Mbps)"]
 
-            Pool_Kong[Kong Backend Pool (Round Robin)]
-            Pool_Proxy[Proxy Backend Pool (Round Robin)]
-            Pool_K8s[K8s Backend Pool (Round Robin)]
+            Pool_Kong["Kong Backend Pool (Round Robin)"]
+            Pool_Proxy["Proxy Backend Pool (Round Robin)"]
+            Pool_K8s["K8s Backend Pool (Round Robin)"]
         end
     end
 
     subgraph "Terraform State Management"
-        TFState[(Terraform State - Stored in OBS)]
-        TFOutput[terraform output (outputs.json)]
+        TFState[("Terraform State - Stored in OBS")]
+        TFOutput["terraform output (outputs.json)"]
     end
 
     Admin --> CLI

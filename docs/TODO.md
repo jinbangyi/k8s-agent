@@ -1,6 +1,7 @@
 # k8s-agent TODO List
 
 - [ ] init cloud infrastructure with terraform
+  - [ ] init network infra
 
 ## Completed
 

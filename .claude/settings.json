@@ -35,6 +35,7 @@
       "Bash(sort:*)",
       "Bash(cut:*)",
       "Bash(comm:*)",
+      "Bash(mmdc:*)",
 
       "Bash(pip:*)",
       "Bash(python:*)",
